@@ -48,4 +48,8 @@ export class VoitureService {
     return this.http.get<Equipement[]>(this.host + "/voitures/equipements/" + voiture.id_voiture);
   }
 
+  ChercherVoiture(id_voiture: number): Observable<Voiture> {
+    return this.http.get<Voiture>(this.host + "/voitures/chercher/" + id_voiture);
+  }
+
 }

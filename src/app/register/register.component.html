@@ -1,0 +1,97 @@
+<div class="container" *ngIf="compteFormGroup">
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-0">
+              <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Créer un
+                  compte</h3>
+              </div>
+              <div class="card-body">
+                <form action="SaveCompte" method="post">
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="small mb-1" for="inputFirstName">Nom</label>
+                        <input class="form-control py-4" name="nom" type="text"
+                               placeholder="Saisir votre nom"  required />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="small mb-1" for="inputLastName">Prénom</label>
+                        <input class="form-control py-4" name="prenom" type="text"
+                               placeholder="Saisir votre prénom"   required="required" />
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="small mb-1" for="inputPassword">Téléphone</label>
+                        <input class="form-control py-4" name="tele" type="text"
+                               placeholder="Saisir votre télephone"   required="required" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="small mb-1" for="inputConfirmPassword">CIN</label>
+                        <input class="form-control py-4" name="cin" type="text"
+                               placeholder="Saisir votre CIN"   required="required" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="small mb-1" for="inputEmailAddress">Email</label>
+                    <input class="form-control py-4" name="email" type="email"
+                           placeholder="Saisir votre mail"   required="required" />
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="small mb-1" for="inputConfirmPassword">Mot
+                          de passe </label> <input class="form-control py-4" name="mdp"
+                                                   type="password" placeholder="Saisir votre mot de passe"
+                                                   required="required" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="small mb-1" for="inputConfirmPassword">Confirme
+                          Mot de passe</label> <input class="form-control py-4" name="cmdp"
+                                                      type="password" placeholder="Confirmer votre mot de passe"
+                                                      required="required" />
+                      </div>
+                    </div>
+
+                    <b style="color: red;">  </b>
+
+                  </div>
+                  <div class="form-group mt-4 mb-0">
+                    <button type="submit" class="btn btn-primary btn-block">Créer
+                      un compte</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer text-center">
+                <div class="small">
+                  <a href="Login">Avoir un compte? Aller à la connexion</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+</div>
