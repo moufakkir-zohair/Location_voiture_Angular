@@ -10,6 +10,10 @@ import { CarDetailsComponent } from './car-details/car-details.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AddVoitureComponent } from './add-voiture/add-voiture.component';
+import { ListeLocationComponent } from './liste-location/liste-location.component';
+import {LocationService} from './services/location.service';
 
 
 const routes: Routes = [
@@ -18,7 +22,9 @@ const routes: Routes = [
   {path:'car-details/:id', component:CarDetailsComponent},
   {path:'contact', component:ContactComponent},
   {path:'login', component:LoginComponent},
-  {path:'register', component:RegisterComponent}
+  {path:'register', component:RegisterComponent},
+  {path:'add-voiture', component:AddVoitureComponent},
+  {path:'locations', component:ListeLocationComponent}
 ];
 
 @NgModule({
@@ -30,12 +36,17 @@ const routes: Routes = [
     ContactComponent,
     LoginComponent,
     RegisterComponent,
+    AddVoitureComponent,
+    ListeLocationComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    FormsModule,
+
   ],
   providers: [
   ],

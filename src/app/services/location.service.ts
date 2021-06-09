@@ -37,6 +37,10 @@ export class LocationService{
     return this.http.get<void>(this.host+"/locations/accepter/"+location.id_location);
   }
 
+  ajouterLocation(id_voiture:number,id_client:number,dated:string,datef:string):Observable<void>{
+    return this.http.get<void>(this.host+"/locations/ajouter?id_voiture="+id_voiture+"&id_client="+id_client+"&dated="+dated+"&datef="+datef);
+  }
+
 }
 
 

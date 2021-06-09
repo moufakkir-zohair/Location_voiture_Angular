@@ -1,4 +1,15 @@
-<div class="container" *ngIf="compteFormGroup">
+<div class="page-heading header-text"  >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Cars</h1>
+        <span>Ajouter nouveau voiture</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" >
   <div id="layoutAuthentication"  >
     <div id="layoutAuthentication_content">
       <main>
@@ -7,13 +18,12 @@
             <div class="col-lg-7">
               <div class="card shadow-lg border-0 rounded-lg mt-0">
                 <div class="card-header">
-                  <h3 class="text-center font-weight-light my-4">Créer un
-                    compte</h3>
+                  <h3 class="text-center font-weight-light my-4">Ajouter nouveau voiture</h3>
                 </div>
 
-  <!--              {{compteFormGroup.value|json}}-->
+                <!--              {{compteFormGroup.value|json}}-->
                 <div class="card-body">
-                  <form [formGroup]="compteFormGroup">
+                  <form >
 
                     <div class="form-row">
                       <div class="col-md-6">
@@ -21,7 +31,7 @@
                           <label class="small mb-1" for="inputFirstName" >Nom</label>
                           <input class="form-control py-4" name="nom" type="text"
                                  placeholder="Saisir votre nom" formControlName="nom"
-                                 [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.nom.errors}"/>
+                                />
                         </div>
                       </div>
 
@@ -30,7 +40,7 @@
                           <label class="small mb-1" for="inputLastName">Prénom</label>
                           <input class="form-control py-4" name="prenom" type="text"
                                  placeholder="Saisir votre prénom" formControlName="prenom"
-                                 [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.prenom.errors}"/>
+                                 />
                         </div>
                       </div>
                     </div>
@@ -42,7 +52,7 @@
                           <label class="small mb-1" for="inputPassword">Téléphone</label>
                           <input class="form-control py-4" name="tele" type="text"
                                  placeholder="Saisir votre télephone"  formControlName="tele"
-                                 [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.tele.errors}"/>
+                                 />
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -50,23 +60,23 @@
                           <label class="small mb-1" for="inputConfirmPassword">CIN</label>
                           <input class="form-control py-4" name="cin" type="text"
                                  placeholder="Saisir votre CIN"   formControlName="cin"
-                                 [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.cin.errors}"/>
+                                />
                         </div>
                       </div>
                     </div>
 
-  <!--                  <div class="form-group">-->
-  <!--                    <label class="small mb-1" for="inputEmailAddress">Email</label>-->
-  <!--                    <input class="form-control py-4" name="email" type="email"-->
-  <!--                           placeholder="Saisir votre mail"   formControlName="email" />-->
-  <!--                  </div>-->
+                    <!--                  <div class="form-group">-->
+                    <!--                    <label class="small mb-1" for="inputEmailAddress">Email</label>-->
+                    <!--                    <input class="form-control py-4" name="email" type="email"-->
+                    <!--                           placeholder="Saisir votre mail"   formControlName="email" />-->
+                    <!--                  </div>-->
 
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="small mb-1" for="inputConfirmPassword">Email</label>
                           <input class="form-control py-4" name="email" type="email" placeholder="Saisir votre email" formControlName="email"
-                                 [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.email.errors}"/>
+                                />
                         </div>
                       </div>
 
@@ -74,9 +84,9 @@
                         <div class="form-group">
                           <label class="small mb-1" for="inputConfirmPassword">Adresse</label>
                           <input class="form-control py-4" name="adresse"
-                                                        type="password" placeholder="Saisir votre adresse"
-                                                        formControlName="adresse"
-                                 [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.adresse.errors}"/>
+                                 type="password" placeholder="Saisir votre adresse"
+                                 formControlName="adresse"
+                                 />
                         </div>
                       </div>
 
@@ -93,7 +103,7 @@
                             de passe </label> <input class="form-control py-4" name="mdp"
                                                      type="password" placeholder="Saisir votre mot de passe"
                                                      formControlName="motpasse"
-                                                     [ngClass]="{'is-invalid':submitted && compteFormGroup.controls.motpasse.errors}"/>
+                                                    />
                         </div>
                       </div>
 
@@ -102,7 +112,7 @@
                           <label class="small mb-1" for="inputConfirmPassword">Confirme
                             Mot de passe</label> <input class="form-control py-4" name="cmdp"
                                                         type="password" placeholder="Confirmer votre mot de passe"
-                                                         required="required"/>
+                                                        required="required"/>
                         </div>
                       </div>
 
@@ -110,7 +120,7 @@
 
                     </div>
                     <div class="form-group mt-4 mb-0">
-                      <button  (click)="onSaveCompte()" class="btn btn-primary btn-block">Créer
+                      <button   class="btn btn-primary btn-block">Créer
                         un compte</button>
                     </div>
                   </form>
@@ -129,3 +139,4 @@
 
   </div>
 </div>
+

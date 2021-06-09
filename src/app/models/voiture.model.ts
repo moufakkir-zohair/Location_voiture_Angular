@@ -12,4 +12,5 @@ export interface Voiture {
   carburant: string;
   boiteAvitesse: string;
   puissanceFiscale: string;
+  disponible?: number;
 }

@@ -40,8 +40,8 @@ export class VoitureService {
     return this.http.post<void>(this.host + "/voitures/locations/affecterEqui?id_voiture=" + id_voiture + "&id_equipement=" + id_equipement, null);
   }
 
-  ListeCommentaire(voiture: Voiture): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>(this.host + "/voitures/commentaires/" + voiture.id_voiture);
+  ListeCommentaire(id_voiture: number): Observable<Commentaire[]> {
+    return this.http.get<Commentaire[]>(this.host + "/voitures/commentaires/" + id_voiture);
   }
 
   ListeEquipement(voiture: Voiture): Observable<Equipement[]> {
