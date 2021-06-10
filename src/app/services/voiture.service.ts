@@ -19,17 +19,6 @@ export class VoitureService {
     return this.http.get<Voiture[]>(this.host + "/voitures/liste");
   }
 
-  uploadPhotoCar(file: File, idPhoto): Observable<HttpEvent<{}>> {
-    let formdata: FormData = new FormData();
-    formdata.append('file', file);
-    const req = new HttpRequest('POST', this.host+'/uploadPhoto/'+idPhoto, formdata, {
-      reportProgress: true,
-      responseType: 'text'
-    });
-
-    return this.http.request(req);
-  }
-
 
   AjouterVoiture(voiture: Voiture): Observable<Voiture> {
     return this.http.post<Voiture>(this.host + "/voitures/ajouter", voiture);

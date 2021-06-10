@@ -106,17 +106,6 @@
             </ng-container>
             </h4>
 
-            <div>
-              <button (click)="onEditPhoto(car)">
-                <span class="glyphicon glyphicon-edit"></span>
-              </button>
-              <p *ngIf="editPhoto && currentCar==car">
-                <input type="file" (change)="onSelectedFile($event)">
-                <button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
-                {{progress}}
-              </p>
-            </div>
-
             <div style="margin-bottom:10px;">
                   <span>
                       <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>{{car.prix}}
