@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Voiture} from '../models/voiture.model';
@@ -17,6 +17,17 @@ export class VoitureService {
 
   ListeVoiture(): Observable<Voiture[]> {
     return this.http.get<Voiture[]>(this.host + "/voitures/liste");
+  }
+
+  uploadPhotoCar(file: File, idPhoto): Observable<HttpEvent<{}>> {
+    let formdata: FormData = new FormData();
+    formdata.append('file', file);
+    const req = new HttpRequest('POST', this.host+'/uploadPhoto/'+idPhoto, formdata, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+
+    return this.http.request(req);
   }
 
 

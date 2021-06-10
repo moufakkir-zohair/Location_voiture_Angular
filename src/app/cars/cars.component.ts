@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {VoitureService} from '../services/voiture.service';
 import {Voiture} from '../models/voiture.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AUTH_TEKEN_KEY, AUTH_USER_NAME, AUTH_USER_TYPE} from '../state/CurrentUser';
@@ -20,6 +20,13 @@ export class CarsComponent implements OnInit {
   public typeCompte: string;
   public UserName: string;
   public KeyUser: number;
+  v: Voiture;
+  currentCar : any;
+  editPhoto : boolean;
+  selectedFiles: any;
+  progress: number;
+  currentFileUpload: any;
+  currentTime: number;
 
 
 
@@ -35,6 +42,37 @@ export class CarsComponent implements OnInit {
     this.KeyUser=+sessionStorage.getItem(AUTH_TEKEN_KEY);
     this.totalRecords=3;
   }
+
+  onEditPhoto(p) {
+    this.currentCar= this.v;
+    this.editPhoto=true;
+  }
+
+  onSelectedFile(event) {
+    this.selectedFiles=event.target.files;
+  }
+
+  uploadPhoto() {
+    this.progress = 0;
+    this.currentFileUpload = this.selectedFiles.item(0)
+    this.voitureService.uploadPhotoCar(this.currentFileUpload, this.currentCar.id_voiture).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        //console.log(this.router.url);
+        //this.getProducts(this.currentRequest);
+        //this.refreshUpdatedProduct();
+        this.currentTime=Date.now();
+      }
+    },err=>{
+      alert("Problème de chargement");
+    })
+
+
+
+    this.selectedFiles = undefined
+  }
+
 
 
 
