@@ -20,7 +20,7 @@ export class CarsComponent implements OnInit {
   public typeCompte: string;
   public UserName: string;
   public KeyUser: number;
-
+ 
 
 
   v: Voiture;
@@ -45,6 +45,7 @@ export class CarsComponent implements OnInit {
     this.totalRecords=3;
   }
 
+ 
 
 
   ListeVoiture(){
