@@ -11,10 +11,11 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AddVoitureComponent } from './add-voiture/add-voiture.component';
 import { ListeLocationComponent } from './liste-location/liste-location.component';
-import {LocationService} from './services/location.service';
-
+import { DataTablesModule } from "angular-datatables";
+import { ListeEquipementComponent } from './liste-equipement/liste-equipement.component';
+import { ListeManagerComponent } from './liste-manager/liste-manager.component';
+import { ListeClientComponent } from './liste-client/liste-client.component';
 
 const routes: Routes = [
   {path:'acceuil', component:AcceuilComponent},
@@ -23,8 +24,10 @@ const routes: Routes = [
   {path:'contact', component:ContactComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
-  {path:'add-voiture', component:AddVoitureComponent},
-  {path:'locations', component:ListeLocationComponent}
+  {path:'locations', component:ListeLocationComponent},
+  {path:'equipements', component:ListeEquipementComponent},
+  {path:'managers', component:ListeManagerComponent},
+  {path:'clients', component:ListeClientComponent}
 ];
 
 @NgModule({
@@ -36,10 +39,13 @@ const routes: Routes = [
     ContactComponent,
     LoginComponent,
     RegisterComponent,
-    AddVoitureComponent,
     ListeLocationComponent,
+    ListeEquipementComponent,
+    ListeManagerComponent,
+    ListeClientComponent,
   ],
   imports: [
+    DataTablesModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),

@@ -1,10 +1,79 @@
 
+<div class="sub-header">
+  <div class="container"  >
+    <div class="row">
+      <div class="col-md-8 col-xs-12">
+        <ul class="left-info">
+          <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
+          <li><a href="#"><i class="fa fa-phone"></i>0627212271</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-xs-8" *ngIf="!UserName">
+        <ul class="right-icons">
+          <li><a routerLink="/login"><i class="fa fa-sign-in" style="padding: 5px;"></i> Authentifier </a></li>
+          <li><a routerLink="/register"><i class="fa fa-user" style="padding: 5px;"></i>Identifier</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-xs-8" *ngIf="UserName">
+        <ul class="right-icons">
+          <li><a href="" (click)="onDeconnexion()" ><i class="fa fa-sign-in" style="padding: 5px;"></i>Déconnextion</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<header class=""  id="xxx">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/acceuil" routerLinkActive="active">Acceuil
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cars"  routerLinkActive="active">Voiture</a>
+          </li>
+
+          <ng-container *ngIf="typeCompte=='CM'">
+            <li class="nav-item dropdown">
+              <a routerLinkActive="active" class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gérer</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" routerLink="/locations" >locations</a>
+                <a class="dropdown-item" routerLink="/equipements" >équipement</a>
+                <a class="dropdown-item" routerLink="/clients" >clients</a>
+              </div>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="typeCompte=='CA'">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/managers" routerLinkActive="active"  >Managers</a>
+            </li>
+          </ng-container>
+
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active" >Contactez-nous</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+
 <!-- Page Content -->
 <div class="page-heading header-text">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1><small><del><sup>$</sup>11999 </del></small> &nbsp; <sup>$</sup>{{voiture.prix}}</h1>
+        <h1><small><del><sup>$</sup>300</del></small> &nbsp; <sup>$</sup>{{voiture.prix}} </h1>
             <span>
                {{voiture.nom}}
             </span>
@@ -17,7 +86,7 @@
     <div class="row">
       <div class="col-md-7">
         <div>
-          <img src="assets/images/product-1-720x480.jpg" alt="" class="img-fluid wc-image">
+          <img class="img-fluid wc-image" src="{{this.voitureService.host+'/voitures/photoVoiture/'+voiture.id_voiture}}" />
         </div>
         <br>
         <br>
@@ -63,7 +132,7 @@
               <div class="clearfix">
                 <span class="pull-left">carburant</span>
 
-                <strong class="pull-right">{{voiture.carburant}}</strong>
+                <strong class="pull-right">carburant</strong>
               </div>
             </li>
 
@@ -71,7 +140,7 @@
               <div class="clearfix">
                 <span class="pull-left">boiteAvitesse</span>
 
-                <strong class="pull-right">{{voiture.boiteAvitesse}}</strong>
+                <strong class="pull-right">boiteAvitesse</strong>
               </div>
             </li>
 
@@ -79,7 +148,7 @@
               <div class="clearfix">
                 <span class="pull-left">puissanceFiscale</span>
 
-                <strong class="pull-right">{{voiture.puissanceFiscale}}</strong>
+                <strong class="pull-right">puissanceFiscale</strong>
               </div>
             </li>
 
@@ -108,73 +177,31 @@
 
     <br>
 
-    <div class="row">
-      <div class="col-md-8">
+
+
+
+
+    <div  class="row">
+      <div class="col-md-8" >
         <div class="tabs-content">
           <h4>Vehicle Description</h4>
-
-          <p>- Colour coded bumpers<br>- Tinted glass<br>- Immobiliser<br>- Central locking - remote<br>- Passenger airbag<br>- Electric windows<br>- Rear head rests<br>- Radio<br>- CD player<br>- Ideal first car<br>- Warranty<br>- High level brake light<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+          <ng-container *ngIf="typeCompte=='CM'">
+              <a  (click)="onOpenModal( 'description')">
+                <i class="fa fa-pencil-square"></i>
+              </a>
+            </ng-container>
+           <p>{{voiture.description}}</p>
           <br>
         </div>
       </div>
 
-      <div class="col-md-4">
-        <div class="tabs-content">
-          <h4>Vehicle Extras</h4>
-
-          <p>- ABS <br>-Leather seats <br>-Power Assisted Steering <br>-Electric heated seats <br>-New HU and AU <br>-Xenon headlights</p>
-        </div>
-
-        <br>
-        <br>
-
-        <div class="tabs-content">
-          <h4>Contact Details</h4>
-
-          <p>
-            <span>Name</span>
-
-            <br>
-
-            <strong>John Smith</strong>
-          </p>
-
-          <p>
-            <span>Phone</span>
-
-            <br>
-
-            <strong>
-              <a href="tel:123-456-789">123-456-789</a>
-            </strong>
-          </p>
-
-          <p>
-            <span>Mobile phone</span>
-
-            <br>
-
-            <strong>
-              <a href="tel:456789123">456789123</a>
-            </strong>
-          </p>
-
-          <p>
-            <span>Email</span>
-
-            <br>
-
-            <strong>
-              <a href="mailto:john@carsales.com">john@carsales.com</a>
-            </strong>
-          </p>
-        </div>
-
-        <br>
-      </div>
+<!--      <div class="col-md-4">-->
+<!--        <div class="tabs-content">-->
+<!--          <h4>Equipements</h4>-->
+<!--          <p>- ABS <br>-Leather seats <br>-Power Assisted Steering <br>-Electric heated seats <br>-New HU and AU <br>-Xenon headlights</p>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
-
     <br>
     <br>
     <br>
@@ -183,33 +210,37 @@
 
 
 
-
-
-
-
-
-
-
 <!-- Main Body -->
 <section>
   <div class="container">
     <div class="row">
-      <div class="col-sm-5 col-md-6 col-12 pb-4">
-        <h1>Comments</h1>
-        <div class="text-justify darker mt-4 float-right"  *ngFor=" let commentaire of commentaires">
+       <div class="col-md-8">
+         <div class="tabs-content">
+        <h4>Commentaire</h4>
+        <ng-container  *ngFor=" let commentaire of commentaires">
+
+        <div class="text-justify darker float-left" style="margin-top: 4px; margin-bottom: 4px;">
           <img src="https://i.imgur.com/CFpa3nK.jpg" alt="" class="rounded-circle" width="40" height="40">
-          <h4>Rob Simpson</h4> <span>- 20 October, 2018</span> <br>
+          <h4>{{commentaire.nom_client}} {{commentaire.prenom_client}}</h4> <span>- {{commentaire.sdate}}</span> <br>
           <p>{{commentaire.commentaire}}</p>
         </div>
+
+        </ng-container>
+         </div>
+
       </div>
-      <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
-        <form id="algin-form">
+      <ng-container *ngIf="UserName && typeCompte!='CM'">
+      <div class="col-md-4">
+        <div class="tabs-content">
+        <form id="algin-form" #updateForm="ngForm" (ngSubmit)="onAjouterCommentaire(updateForm)">
           <div class="form-group">
-            <h4>Leave a comment</h4> <label for="message">Message</label> <textarea name="msg" id="" msg cols="30" rows="5" class="form-control"></textarea>
+            <h4>laissez un commentaire</h4> <textarea name="commentaire" id="msg"  cols="30" rows="5" class="form-control"  ngModel></textarea>
           </div>
-          <div class="form-group"> <button type="button" id="post" class="btn">Post Comment</button> </div>
+          <div class="form-group"> <button  [disabled]="typeCompte=='CA' || typeCompte=='CM'" type="submit" id="post" class="btn">Poster</button> </div>
         </form>
+        </div>
       </div>
+      </ng-container>
     </div>
   </div>
 </section>
@@ -233,78 +264,14 @@
 
 
 <!-- Footer Starts Here -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 footer-item">
-        <h4>Car Dealer Website</h4>
-        <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
-        <ul class="social-icons">
-          <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-item">
-        <h4>Useful Links</h4>
-        <ul class="menu-list">
-          <li><a href="#">Vivamus ut tellus mi</a></li>
-          <li><a href="#">Nulla nec cursus elit</a></li>
-          <li><a href="#">Vulputate sed nec</a></li>
-          <li><a href="#">Cursus augue hasellus</a></li>
-          <li><a href="#">Lacinia ac sapien</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-item">
-        <h4>Additional Pages</h4>
-        <ul class="menu-list">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Terms</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-item last-item">
-        <h4>Contact Us</h4>
-        <div class="contact-form">
-          <form id="contact footer-contact" action="" method="post">
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <fieldset>
-                  <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <fieldset>
-                  <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <button type="submit" id="form-submit" class="filled-button">Send Message</button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
 
-<div class="sub-footer">
+
+<div class="sub-footer" style="margin-top: 20px;">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <p>
-          Copyright © 2020 Company Name
-          - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+          Copyright © 2021
         </p>
       </div>
     </div>
@@ -391,3 +358,42 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="DescriptionModal" tabindex="-1" role="dialog" aria-labelledby="DescriptionModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Modifier la description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #updateForm="ngForm" (ngSubmit)="onModifierVoiture(updateForm)">
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">description:</label>
+            <textarea  class="form-control" id="message-text"  name="desc" [(ngModel)]="voiture.description"  ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="description-voiture-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button  type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

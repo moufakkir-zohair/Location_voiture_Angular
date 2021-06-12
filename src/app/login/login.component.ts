@@ -21,13 +21,16 @@ export class LoginComponent implements OnInit {
 
   onVerifierCompte(form: NgForm) {
      this.compteService.VerifierCompte(form.value['email'],form.value['password']).subscribe(data=>{
+       console.log(data);
        if(data==1){
          sessionStorage.setItem(AUTH_USER_TYPE,"CC");
        }else if(data==3){
          sessionStorage.setItem(AUTH_USER_TYPE,"CA");
+       }else if(data==2){
+         sessionStorage.setItem(AUTH_USER_TYPE,"CM");
        }
        this.onChercherClient(form.value['email'],form.value['password']);
-       this.router.navigate(['/acceuil']);
+       this.router.navigateByUrl("/acceuil");
      });
   }
 

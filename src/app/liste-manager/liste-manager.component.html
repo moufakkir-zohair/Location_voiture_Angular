@@ -1,0 +1,270 @@
+<div class="sub-header">
+  <div class="container"  >
+    <div class="row">
+      <div class="col-md-8 col-xs-12">
+        <ul class="left-info">
+          <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
+          <li><a href="#"><i class="fa fa-phone"></i>0627212271</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-xs-8" *ngIf="!UserName">
+        <ul class="right-icons">
+          <li><a routerLink="/login"><i class="fa fa-sign-in" style="padding: 5px;"></i> Authentifier </a></li>
+          <li><a routerLink="/register"><i class="fa fa-user" style="padding: 5px;"></i>Identifier</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-xs-8" *ngIf="UserName">
+        <ul class="right-icons">
+          <li><a routerLink="deconnexion" (click)="onDeconnexion()" ><i class="fa fa-sign-in" style="padding: 5px;"></i>Déconnextion</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class=""  id="xxx">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/acceuil" routerLinkActive="active">Acceuil
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cars"  routerLinkActive="active">Voiture</a>
+          </li>
+
+          <ng-container *ngIf="typeCompte=='CM'">
+            <li class="nav-item dropdown">
+              <a routerLinkActive="active" class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gérer</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" routerLink="/locations" >locations</a>
+                <a class="dropdown-item" routerLink="/equipements" >équipement</a>
+                <a class="dropdown-item" routerLink="/clients" >clients</a>
+              </div>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="typeCompte=='CA'">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/managers" routerLinkActive="active"  >Managers</a>
+            </li>
+          </ng-container>
+
+
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active" >Contactez-nous</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<!-- Page Content -->
+<div class="page-heading header-text"  >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Liste des managers</h1>
+        <div>
+          <button class="btn btn-primary" (click)="onOpenModal(null, 'add')" > Ajouter manager</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="services">
+  <div class="container">
+
+
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+
+      <tr>
+        <th>nom</th>
+        <th>prénom</th>
+        <th>email</th>
+        <th>téléphone</th>
+        <th>adresse</th>
+        <th>action</th>
+      </tr>
+
+      </thead>
+      <tbody>
+      <ng-container *ngIf="comptes">
+        <tr *ngFor="let c of comptes">
+          <td>{{c.nom}}</td>
+          <td>{{c.prenom}}</td>
+          <td>{{c.email}}</td>
+          <td>{{c.tele}}</td>
+          <td>{{c.adresse}}</td>
+          <td>
+            <li class="list-inline-item">
+              <button class="btn btn-danger" (click)="onOpenModal(c, 'delete')" ><i class="fa fa-trash"></i>Supprimer</button>
+<!--              <button class="btn btn-info" style="margin-left: 5px;" (click)="onOpenModal(c, 'update')"> <i class="fa fa-pencil-square"></i> modifier</button>-->
+            </li>
+          </td>
+        </tr>
+      </ng-container>
+
+      </tbody>
+    </table>
+    <br>
+    <br>
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+
+
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Copyright © 2021
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addCompteModalLabel" tabindex="-1" role="dialog" aria-labelledby="addCompteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Ajouter nouveau manager</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAjouterCompteM(addForm)">
+          <div class="form-group">
+            <label for="name">nom</label>
+            <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="nom" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name">prénom</label>
+            <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="prénom" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name">email</label>
+            <input type="email" ngModel name="email" class="form-control" id="email" placeholder="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Télephone</label>
+            <input type="text" ngModel name="tele" class="form-control" id="tele" placeholder="Télephone" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Adresse</label>
+            <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="Adresse" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name">CIN</label>
+            <input type="text" ngModel name="cin" class="form-control" id="cin" placeholder="CIN" required>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Mot de passe</label>
+            <input type="password" ngModel name="motpasse" class="form-control" id="motpasse" placeholder="****" required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="add-compte-form" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="deleteCompteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Supprimer manager</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer le manager {{compteDelete?.nom}} ?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+          <button (click)="onSupprimeCompte(compteDelete)" class="btn btn-danger" data-dismiss="modal">Oui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--&lt;!&ndash; Add Employee Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="updateCompteModal" tabindex="-1" role="dialog" aria-labelledby="updateModelLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" >Modifier manager</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form #updateForm="ngForm" (ngSubmit)="onModifierCompte(updateForm)">-->
+<!--          <div class="form-group">-->
+<!--            <label for="name">Nom</label>-->
+<!--            <input type="text" ngModel  name="nom" class="form-control" id="nom"  value="{{compteUpdate?.nom}}" required>-->
+<!--          </div>-->
+<!--          <div class="modal-footer">-->
+<!--            <button type="button" id="update-compte-form" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--            <button  type="submit" class="btn btn-primary" >Save changes</button>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
+

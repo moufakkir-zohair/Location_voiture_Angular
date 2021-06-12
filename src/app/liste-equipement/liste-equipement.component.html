@@ -1,4 +1,3 @@
-
 <div class="sub-header">
   <div class="container"  >
     <div class="row">
@@ -22,6 +21,9 @@
     </div>
   </div>
 </div>
+
+
+
 <header class=""  id="xxx">
   <nav class="navbar navbar-expand-lg">
     <div class="container">
@@ -65,47 +67,51 @@
   </nav>
 </header>
 
+
 <!-- Page Content -->
 <div class="page-heading header-text"  >
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Liste des locations</h1>
+        <h1>Liste des équipement</h1>
+        <div>
+          <button class="btn btn-primary" (click)="onOpenModal(null, 'add')" > Ajouter Equipement</button>
+        </div>
 
       </div>
     </div>
   </div>
 </div>
+
 <div class="services">
   <div class="container">
 
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
       <thead>
+
       <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>date début</th>
-        <th>date fin</th>
-        <th>voiture</th>
+        <th>Image</th>
+        <th>équipement</th>
         <th>action</th>
       </tr>
+
       </thead>
       <tbody>
-
-      <tr *ngFor="let l of locations">
-        <td>{{l.nom_client}}</td>
-        <td>{{l.prenom_client}}</td>
-        <td>{{l.sdated}}</td>
-        <td>{{l.sdatef}}</td>
-        <td>{{l.voiture}}</td>
+      <ng-container *ngIf="equipements">
+      <tr *ngFor="let e of equipements">
+        <td>{{e.nom}}</td>
+        <td>{{e.nom}}</td>
         <td>
-          <button class="btn btn-primary" (click)="onOpenModal(l, 'effectuee')" style="margin-right: 5px">effectuée</button>
-          <button class="btn btn-primary" (click)="onOpenModal(l, 'annulee')">annulée</button>
+          <li class="list-inline-item">
+          <button class="btn btn-danger" (click)="onOpenModal(e, 'delete')" ><i class="fa fa-trash"></i>Supprimer</button>
+          <button class="btn btn-info" style="margin-left: 5px;" (click)="onOpenModal(e, 'update')"> <i class="fa fa-pencil-square"></i> modifier</button>
+          </li>
         </td>
       </tr>
+      </ng-container>
+
       </tbody>
     </table>
-
     <br>
     <br>
 
@@ -117,6 +123,7 @@
     <br>
   </div>
 </div>
+
 
 
 <div class="sub-footer">
@@ -135,20 +142,62 @@
 
 
 
-<div class="modal fade" id="effectueeModalLabel" tabindex="-1" role="dialog" aria-labelledby="effectueeModelLabel" aria-hidden="true">
+
+
+
+
+
+
+
+
+
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEquipementModalLabel" tabindex="-1" role="dialog" aria-labelledby="addEquipementModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="effectueeModelLabel">Effectuer Location</h5>
+        <h5 class="modal-title" >Ajouter nouveau voiture</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Êtes-vous sûr de vouloir effecué la location de Mr  {{locationEffectuee?.nom_client}} ?</p>
+        <form #addForm="ngForm" (ngSubmit)="onAjouterEquipement(addForm)">
+          <div class="form-group">
+            <label for="name">nom d'équipement</label>
+            <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="nom" required>
+          </div>
+<!--          <div class="form-group">-->
+<!--            <label for="email">Image</label>-->
+<!--            <input type="email" ngModel name="type" class="form-control" id="type" placeholder="type" required>-->
+<!--          </div>-->
+          <div class="modal-footer">
+            <button type="button" id="add-equipement-form" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="deleteEquipementModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Supprimer Equipement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer l'équipement  {{equipementDelete?.nom}} ?</p>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-          <button (click)="onEffectueeLocation()" class="btn btn-primary" data-dismiss="modal">Oui</button>
+          <button (click)="onSupprimeEquipement(equipementDelete)" class="btn btn-danger" data-dismiss="modal">Oui</button>
         </div>
       </div>
     </div>
@@ -156,25 +205,33 @@
 </div>
 
 
-<div class="modal fade" id="annuleeModalLabel" tabindex="-1" role="dialog" aria-labelledby="effectueeModelLabel" aria-hidden="true">
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="updateEquipementModal" tabindex="-1" role="dialog" aria-labelledby="updateModelLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="annulerModelLabel">Annuler Location</h5>
+        <h5 class="modal-title" >Modifier l'équipement</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Êtes-vous sûr de vouloir annulé la location de Mr  {{locationAnnulee?.nom_client}} ?</p>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-          <button (click)="onAnnulerLocation()" class="btn btn-primary" data-dismiss="modal">Oui</button>
-        </div>
+        <form #updateForm="ngForm" (ngSubmit)="onModifierEquipement(updateForm)">
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" ngModel  name="nom" class="form-control" id="nom"  value="{{equipementUpdate?.nom}}" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="update-equipement-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button  type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
 
 
 

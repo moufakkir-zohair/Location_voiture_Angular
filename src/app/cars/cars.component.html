@@ -1,71 +1,71 @@
-
-
 <!-- Header -->
 <div class="sub-header">
   <div class="container"  >
     <div class="row">
-      <div class="col-md-8 col-xs-12" >
+      <div class="col-md-8 col-xs-12">
         <ul class="left-info">
           <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
-          <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
+          <li><a href="#"><i class="fa fa-phone"></i>0627212271</a></li>
         </ul>
       </div>
-
       <div class="col-md-4 col-xs-8" *ngIf="!UserName">
         <ul class="right-icons">
-          <li><a routerLink="/login"><i class="fa fa-sign-in" style="padding: 5px;"></i>Login</a></li>
-          <li><a routerLink="/register"><i class="fa fa-user" style="padding: 5px;"></i>Register</a></li>
+          <li><a routerLink="/login"><i class="fa fa-sign-in" style="padding: 5px;"></i> Authentifier </a></li>
+          <li><a routerLink="/register"><i class="fa fa-user" style="padding: 5px;"></i>Identifier</a></li>
         </ul>
       </div>
-
       <div class="col-md-4 col-xs-8" *ngIf="UserName">
         <ul class="right-icons">
-          <li><a routerLink="deconnexion"><i class="fa fa-sign-in" style="padding: 5px;"></i>Déconnextion</a></li>
+          <li><a routerLink="deconnexion" (click)="onDeconnexion()" ><i class="fa fa-sign-in" style="padding: 5px;"></i>Déconnextion</a></li>
         </ul>
       </div>
-
     </div>
   </div>
 </div>
+
+
+
 <header class=""  id="xxx">
-
-
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="index.html"><h2>Car Dealer<em> Website</em></h2></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/acceuil" routerLinkActive="active">Home
+            <a class="nav-link" routerLink="/acceuil" routerLinkActive="active">Acceuil
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/cars"  routerLinkActive="active">Cars</a>
+            <a class="nav-link" routerLink="/cars"  routerLinkActive="active">Voiture</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
 
-            <div class="dropdown-menu">
-              <a class="dropdown-item" routerLink="/locations">About Us</a>
-              <a class="dropdown-item" href="blog.html">Blog</a>
-              <a class="dropdown-item" href="team.html">Team</a>
-              <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-              <a class="dropdown-item" href="faq.html">FAQ</a>
-              <a class="dropdown-item" href="terms.html">Terms</a>
-            </div>
-          </li>
+          <ng-container *ngIf="typeCompte=='CM'">
+            <li class="nav-item dropdown">
+              <a routerLinkActive="active" class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gérer</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" routerLink="/locations" >locations</a>
+                <a class="dropdown-item" routerLink="/equipements" >équipement</a>
+                <a class="dropdown-item" routerLink="/clients" >clients</a>
+              </div>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="typeCompte=='CA'">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/managers" routerLinkActive="active"  >Managers</a>
+            </li>
+          </ng-container>
+
+
           <li class="nav-item">
-            <a class="nav-link" routerLink="/contact" routerLinkActive="active" >Contact Us</a>
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active" >Contactez-nous</a>
           </li>
         </ul>
-
       </div>
     </div>
   </nav>
-
 </header>
 
 
@@ -74,13 +74,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Cars</h1>
-        <ng-container *ngIf="typeCompte=='CA'">
+        <h1>Voitures</h1>
+        <span  *ngIf="typeCompte!='CM'" >Liste des voitures</span>
+        <ng-container *ngIf="typeCompte=='CM'">
         <div>
           <button class="btn btn-primary"  (click)="onOpenModal(null, 'add')"> Ajouter voiture</button>
         </div>
         </ng-container>
-
       </div>
     </div>
   </div>
@@ -90,14 +90,14 @@
      <div class="row">
 
       <ng-container *ngIf="cars">
-      <div class="col-md-4"  *ngFor="let car of cars|paginate:{
-      itemsPerPage:3,
-      currentPage:page,
-      totalItems:totalRecords
-      }">
-
+      <div class="col-md-4"  *ngFor="let car of cars">
+<!--        |paginate:{-->
+<!--        itemsPerPage:3,-->
+<!--        currentPage:page,-->
+<!--        totalItems:totalRecords-->
+<!--        }-->
         <div class="service-item">
-          <img src="assets/images/product-6-720x480.jpg" alt="">
+          <img   style="width: 289px; height: 217px" src="{{this.voitureService.host+'/voitures/photoVoiture/'+car.id_voiture}}" />
           <div class="down-content">
 
             <h4> {{car.nom}}
@@ -117,8 +117,8 @@
               <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
               <i class="fa fa-cog"></i> {{car.disponible}} &nbsp;&nbsp;&nbsp;
             </p>
-            <a (click)="onSelectCar(car)" class="filled-button">View More</a>
-            <ng-container *ngIf="typeCompte=='CA'">
+            <a (click)="onSelectCar(car)" class="filled-button">plus d'info</a>
+            <ng-container *ngIf="typeCompte=='CM'">
               <button class="btn btn-danger" style="float: right;" (click)="onOpenModal(car, 'delete')"><i class="fa fa-trash" ></i></button>
             </ng-container>
 
@@ -134,10 +134,10 @@
 
       </div>
       </ng-container>
-      <div class="pagination-style">
-        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="page = $event">
-        </pagination-controls>
-      </div>
+<!--      <div class="pagination-style">-->
+<!--        <pagination-controls responsive="true" previousLabel="Precedant" nextLabel="Suivant" (pageChange)="page = $event">-->
+<!--        </pagination-controls>-->
+<!--      </div>-->
     </div>
 
     <br>
@@ -152,79 +152,14 @@
   </div>
 </div>
 
-<!-- Footer Starts Here -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 footer-item">
-        <h4>Car Dealer Website</h4>
-        <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
-        <ul class="social-icons">
-          <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-item">
-        <h4>Useful Links</h4>
-        <ul class="menu-list">
-          <li><a href="#">Vivamus ut tellus mi</a></li>
-          <li><a href="#">Nulla nec cursus elit</a></li>
-          <li><a href="#">Vulputate sed nec</a></li>
-          <li><a href="#">Cursus augue hasellus</a></li>
-          <li><a href="#">Lacinia ac sapien</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-item">
-        <h4>Additional Pages</h4>
-        <ul class="menu-list">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Terms</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-item last-item">
-        <h4>Contact Us</h4>
-        <div class="contact-form">
-          <form id="contact footer-contact" action="" method="post">
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <fieldset>
-                  <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <fieldset>
-                  <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <button type="submit" id="form-submit" class="filled-button">Send Message</button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+
 
 <div class="sub-footer">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <p>
-          Copyright © 2020 Company Name
-          - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+          Copyright © 2021
         </p>
       </div>
     </div>
@@ -273,12 +208,12 @@
 
             <div class="form-group">
               <label for="phone">Image URL</label>
-              <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+              <input type="file" (change)="onSelectedFile($event)" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
             </div>
 
             <div class="modal-footer">
               <button type="button" id="add-voiture-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              <button [disabled]="addForm.invalid"  type="submit" class="btn btn-primary" >Save changes</button>
             </div>
           </form>
         </div>
@@ -323,7 +258,7 @@
       </div>
       <div class="modal-body">
         <form #reserveForm="ngForm" (ngSubmit)="onReserveVoiture(reserveForm)">
-               <div class="form-group">-->
+               <div class="form-group">
                           <label for="name">Date de début</label>
                           <input type="date" ngModel  name="dated" class="form-control" id="dated"   required>
                         </div>

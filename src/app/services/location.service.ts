@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {Equipement} from '../models/equipement.model';
 import {Location} from '../models/location.model';
 import {Voiture} from '../models/voiture.model';
+import {LocationState} from '../state/LocationState';
 
 @Injectable({providedIn:"root"})
 
@@ -15,8 +16,8 @@ export class LocationService{
   constructor(private http: HttpClient) {
   }
 
-  ListeLocation():Observable<Location[]>{
-    return this.http.get<Location[]>(this.host+"/locations/liste");
+  ListeLocation():Observable<LocationState[]>{
+    return this.http.get<LocationState[]>(this.host+"/locations/liste");
   }
 
   VoitureLocation(location:Location):Observable<Voiture>{
@@ -24,9 +25,17 @@ export class LocationService{
   }
 
 
-  EffectuerLocation(location:Location):Observable<void>{
-    return this.http.get<void>(this.host+"/locations/effectuer/"+location.id_location);
+  EffectuerLocation(id_location:number):Observable<void>{
+    return this.http.get<void>(this.host+"/locations/effectuer/"+id_location);
   }
+
+
+
+  SupprimerLocation(id_location:number):Observable<void>{
+    return this.http.get<void>(this.host+"/locations/supprimer/"+id_location);
+  }
+
+
 
   VerifierLocation(voiture: Voiture):Observable<number>{
     return this.http.get<number>(this.host+"/locations/disponible/"+voiture.id_voiture);

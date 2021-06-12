@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {VoitureService} from '../services/voiture.service';
 import {Voiture} from '../models/voiture.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AUTH_TEKEN_KEY, AUTH_USER_NAME, AUTH_USER_TYPE} from '../state/CurrentUser';
@@ -23,8 +23,17 @@ export class CarsComponent implements OnInit {
 
 
 
-  constructor(private voitureService: VoitureService, private router: Router, private locationService: LocationService) { }
+  v: Voiture;
+  currentCar : any;
+  editPhoto : boolean;
+  selectedFiles: any;
+  progress: number;
+  currentFileUpload: any;
+  currentTime: number;
 
+
+
+  constructor(private voitureService: VoitureService, private router: Router, private locationService: LocationService) { }
   public totalRecords: number;
   public page: number =1;
 
@@ -76,18 +85,15 @@ export class CarsComponent implements OnInit {
     button.click();
   }
 
-  onAddEmloyee(addForm: NgForm) {
-
-
-  }
 
   onAjouterVoiture(addForm: NgForm) {
       document.getElementById('add-voiture-form').click();
       this.voitureService.AjouterVoiture(addForm.value).subscribe(
         (response: Voiture) => {
-          console.log(response);
-          this.ListeVoiture();
+          this.currentCar=response;
+          this.uploadPhoto();
           addForm.reset();
+          this.ListeVoiture();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -113,4 +119,40 @@ export class CarsComponent implements OnInit {
       }
     )
   }
+
+  onDeconnexion(){
+    sessionStorage.removeItem(AUTH_TEKEN_KEY);
+    sessionStorage.removeItem(AUTH_USER_TYPE);
+    sessionStorage.removeItem(AUTH_USER_NAME);
+    this.router.navigateByUrl("/acceuil");
+  }
+
+
+
+
+  onSelectedFile(event) {
+    this.selectedFiles=event.target.files;
+  }
+
+  uploadPhoto() {
+    this.currentFileUpload = this.selectedFiles.item(0)
+    this.voitureService.uploadPhotoCar(this.currentFileUpload, this.currentCar.id_voiture).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        //console.log(this.router.url);
+        //this.getProducts(this.currentRequest);
+        //this.refreshUpdatedProduct();
+        this.currentTime=Date.now();
+        this.ListeVoiture();
+      }
+    },err=>{
+      alert("Problème de chargement");
+    })
+
+
+
+    this.selectedFiles = undefined
+  }
+
 }
