@@ -20,8 +20,8 @@ export class CarsComponent implements OnInit {
   public typeCompte: string;
   public UserName: string;
   public KeyUser: number;
- 
-
+  public totalRecords: number;
+  public page: number =1;
 
   v: Voiture;
   currentCar : any;
@@ -34,18 +34,19 @@ export class CarsComponent implements OnInit {
 
 
   constructor(private voitureService: VoitureService, private router: Router, private locationService: LocationService) { }
-  public totalRecords: number;
-  public page: number =1;
+
 
   ngOnInit(): void {
     this.ListeVoiture();
     this.typeCompte=sessionStorage.getItem(AUTH_USER_TYPE);
     this.UserName=sessionStorage.getItem(AUTH_USER_NAME);
     this.KeyUser=+sessionStorage.getItem(AUTH_TEKEN_KEY);
-    this.totalRecords=3;
+    this.totalRecords=this.cars.length;
+
+
   }
 
- 
+
 
 
   ListeVoiture(){

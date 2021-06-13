@@ -87,15 +87,15 @@
 </div>
 <div class="services">
   <div class="container">
-     <div class="row">
+     <div class="row"  style="display: grid;">
 
       <ng-container *ngIf="cars">
-      <div class="col-md-4"  *ngFor="let car of cars">
-<!--        |paginate:{-->
-<!--        itemsPerPage:3,-->
-<!--        currentPage:page,-->
-<!--        totalItems:totalRecords-->
-<!--        }-->
+      <div class="col-md-4"  *ngFor="let car of cars
+        |paginate:{
+        itemsPerPage:1,
+        currentPage:page,
+        totalItems:totalRecords
+        }">
         <div class="service-item">
           <img   style="width: 289px; height: 217px" src="{{this.voitureService.host+'/voitures/photoVoiture/'+car.id_voiture}}" />
           <div class="down-content">
@@ -134,10 +134,10 @@
 
       </div>
       </ng-container>
-<!--      <div class="pagination-style">-->
-<!--        <pagination-controls responsive="true" previousLabel="Precedant" nextLabel="Suivant" (pageChange)="page = $event">-->
-<!--        </pagination-controls>-->
-<!--      </div>-->
+      <div class="pagination-style ">
+        <pagination-controls responsive="true" previousLabel="Precedant" nextLabel="Suivant" (pageChange)="page = $event">
+        </pagination-controls>
+      </div>
     </div>
 
     <br>
